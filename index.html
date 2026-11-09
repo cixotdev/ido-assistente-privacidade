@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Política de Privacidade — I-DO Assistente</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #24292f; max-width: 860px; margin: 40px auto; padding: 0 20px; background: #f6f8fa; }
+    .card { background: #ffffff; border: 1px solid #d0d7de; border-radius: 8px; padding: 36px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+    h1 { font-size: 26px; border-bottom: 2px solid #e89a25; padding-bottom: 8px; color: #1f2328; margin-bottom: 12px; }
+    h2 { font-size: 18px; color: #1f2328; margin-top: 24px; margin-bottom: 10px; border-bottom: 1px solid #eaeef2; padding-bottom: 4px; }
+    p, li { font-size: 14.5px; color: #32383f; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13.5px; }
+    th, td { border: 1px solid #d0d7de; padding: 10px 12px; text-align: left; }
+    th { background: #f6f8fa; font-weight: 600; }
+    code { background: #afb8c133; padding: 2px 6px; border-radius: 4px; font-family: ui-monospace, SFMono-Regular, monospace; font-size: 12.5px; }
+    .badge { background: #e89a25; color: #121417; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 12px; display: inline-block; }
+    .note { background: #f0f6fc; border-left: 4px solid #0969da; padding: 12px 16px; margin: 16px 0; border-radius: 0 6px 6px 0; font-size: 13.5px; }
+    .footer { margin-top: 32px; font-size: 12px; color: #6e7781; text-align: center; border-top: 1px solid #eaeef2; padding-top: 16px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Política de Privacidade <span class="badge">I-DO Assistente v1.0.0</span></h1>
+    <p><strong>Desenvolvedor:</strong> João Cardoso &nbsp;|&nbsp; <strong>Domínio de Execução:</strong> painel.idoapp.com.br &nbsp;|&nbsp; <strong>Versão:</strong> 1.0.0 (Manifesto 1.0.0.24)</p>
+    
+    <h2>1. Arquitetura 100% Client-Side (Zero Servidores do Desenvolvedor)</h2>
+    <p>O <strong>I-DO Assistente</strong> opera com arquitetura estritamente no lado do cliente (navegador do operador). O desenvolvedor não possui servidores próprios para recepção ou processamento de dados. Nenhuma informação é transmitida para o desenvolvedor ou terceiros para fins de telemetria, rastreamento analítico ou publicidade.</p>
+
+    <h2>2. Comunicações de Rede</h2>
+    <p>A extensão interage unicamente com os seguintes pontos de rede:</p>
+    <ul>
+      <li><code>painel.idoapp.com.br</code>: Portal corporativo de atendimento onde a extensão atua como ferramenta de produtividade e organização.</li>
+      <li><code>api.giphy.com</code> e <code>api.klipy.com</code>: Provedores públicos consultados estritamente quando o operador pesquisa figurinhas e GIFs. Nenhum dado do cliente, senha, PIN ou mensagem corporativa é enviado a esses serviços.</li>
+    </ul>
+
+    <h2>3. Dados Armazenados Localmente</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Tipo de Dado</th>
+          <th>Finalidade</th>
+          <th>Armazenamento Local</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Preferências de Interface</strong></td>
+          <td>Manter ativas as opções de Visto, Digitando e Fila 1×</td>
+          <td><code>chrome.storage.local</code></td>
+        </tr>
+        <tr>
+          <td><strong>Grupos Fixados</strong></td>
+          <td>Atalhos de canais internos com badges de mensagens pendentes</td>
+          <td><code>chrome.storage.local</code></td>
+        </tr>
+        <tr>
+          <td><strong>Chaves do I-DO Privado</strong></td>
+          <td>Cifragem e decifragem de mensagens em grupos internos autorizados</td>
+          <td><code>chrome.storage.local</code> segregado por conta</td>
+        </tr>
+        <tr>
+          <td><strong>PIN Local de 4 Dígitos</strong></td>
+          <td>Bloqueio de sessão local da estação de trabalho</td>
+          <td>Hash PBKDF2 local com salt independente</td>
+        </tr>
+        <tr>
+          <td><strong>Caches de Mídia</strong></td>
+          <td>Exibição de figurinhas e restauração local</td>
+          <td><code>IndexedDB</code> no navegador</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <strong>Armazenamento Local e Criptografia em Trânsito:</strong> Os dados locais residem no perfil do navegador no disco local. O módulo I-DO Privado utiliza cifra PBKDF2 e AES-256-GCM para proteger o conteúdo em trânsito pela rede da empresa. Chats com clientes externos são estritamente excluídos da criptografia (fail-closed).
+    </div>
+
+    <h2>4. Permissões Solicitadas</h2>
+    <ul>
+      <li><code>storage</code>: Persistir preferências locais de interface, grupos fixados e chaves locais no próprio computador do operador.</li>
+      <li><code>idle</code>: Detectar inatividade da estação para bloquear preventivamente a sessão do cofre privado.</li>
+      <li><code>https://painel.idoapp.com.br/*</code>: Escopo estrito e delimitado onde a extensão opera. Não executa em nenhum outro site.</li>
+    </ul>
+
+    <h2>5. Exclusão e Redefinição de Dados</h2>
+    <p>O operador tem controle total sobre suas informações armazenadas localmente:</p>
+    <ul>
+      <li>Pode acionar a <strong>Redefinição Destrutiva</strong> diretamente pelo Cofre Seguro para apagar imediatamente todas as chaves e regras locais da conta.</li>
+      <li>Pode desinstalar a extensão a qualquer momento pelo gerenciador de extensões do navegador (<code>chrome://extensions</code>), removendo todos os dados associados no perfil do navegador.</li>
+    </ul>
+
+    <div class="footer">
+      © 2026 João Cardoso — I-DO Assistente v1.0.0
+    </div>
+  </div>
+</body>
+</html>
